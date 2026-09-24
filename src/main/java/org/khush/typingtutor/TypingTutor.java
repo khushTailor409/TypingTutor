@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
@@ -87,6 +88,11 @@ public class TypingTutor extends Application {
                 row1,row2,row3,row4,row5
         );
         Scene scene = new Scene(keyboard, 700, 350);
+
+        scene.setOnKeyPressed(event -> {
+            System.out.println(event.getCode());
+        });
+
         stage.setTitle("Typing Tutor");
         stage.setScene(scene);
         stage.show();
