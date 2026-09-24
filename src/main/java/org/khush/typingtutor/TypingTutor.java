@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
@@ -23,6 +24,10 @@ public class TypingTutor extends Application {
 
         boolean[] shiftPressed = {false};
 
+        TextField response = new TextField();
+        response.setPrefWidth(500);
+        response.setPromptText("Type here");
+
         HBox row1 = new HBox(5);
         row1.setAlignment(Pos.CENTER);
 
@@ -31,7 +36,7 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row1key.charAt(i)));
             button.setPrefSize(50, 50);
             button.setOnAction(event -> {
-                System.out.println(button.getText());
+                response.appendText(button.getText());
             });
             row1.getChildren().add(button);
         }
@@ -44,10 +49,9 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row2key.charAt(i)));
             button.setPrefSize(50, 50);
             button.setOnAction(event -> {
-                System.out.println(button.getText());
+                response.appendText(button.getText());
             });
             row2.getChildren().add(button);
-
         }
 
         HBox row3 = new HBox(5);
@@ -58,7 +62,7 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row3key.charAt(i)));
             button.setPrefSize(80, 50);
             button.setOnAction(event -> {
-                System.out.println(button.getText());
+                response.appendText(button.getText());
             });
             row3.getChildren().add(button);
         }
@@ -69,6 +73,7 @@ public class TypingTutor extends Application {
         Button shift = new Button("Shift");
         shift.setId("SHIFT");
         shift.setPrefSize(80, 50);
+
         shift.setOnAction(event -> {
             shiftPressed[0] = !shiftPressed[0];
 
@@ -108,20 +113,26 @@ public class TypingTutor extends Application {
         for (int i = 0; i < row4key.length(); i++) {
             Button button = new Button(String.valueOf(row4key.charAt(i)));
             button.setId(String.valueOf(row4key.charAt(i)));
-            button.setPrefSize(50,50);
+            button.setPrefSize(50, 50);
             button.setOnAction(event -> {
-                System.out.println(button.getText());
+                response.appendText(button.getText());
             });
             row4.getChildren().add(button);
-
         }
 
         Button backspace = new Button("Backspace");
         backspace.setId("BACK_SPACE");
-        backspace.setPrefSize(100,50);
+        backspace.setPrefSize(100, 50);
+
         backspace.setOnAction(event -> {
-            System.out.println(backspace.getText());
+            if (!response.getText().isEmpty()) {
+                response.deleteText(
+                        response.getText().length() - 1,
+                        response.getText().length()
+                );
+            }
         });
+
         row4.getChildren().add(backspace);
 
         HBox row5 = new HBox(5);
@@ -130,18 +141,21 @@ public class TypingTutor extends Application {
         Button space = new Button("Space");
         space.setId("SPACE");
         space.setPrefSize(300, 50);
+
         space.setOnAction(event -> {
-            System.out.println(space.getText());
+            response.appendText(" ");
         });
+
         row5.getChildren().add(space);
 
         VBox keyboard = new VBox(5);
         keyboard.setAlignment(Pos.CENTER);
 
         keyboard.getChildren().addAll(
-                row1,row2,row3,row4,row5
+                response, row1, row2, row3, row4, row5
         );
-        Scene scene = new Scene(keyboard, 700, 350);
+
+        Scene scene = new Scene(keyboard, 700, 400);
 
         scene.setOnKeyPressed(event -> {
             String key = event.getCode().toString();
@@ -150,16 +164,30 @@ public class TypingTutor extends Application {
                 return;
             }
 
+            if (key.equals("BACK_SPACE")) {
+                if (!response.getText().isEmpty()) {
+                    response.deleteText(
+                            response.getText().length() - 1,
+                            response.getText().length()
+                    );
+                }
+                return;
+            }
+
+            if (key.equals("SPACE")) {
+                response.appendText(" ");
+                return;
+            }
+
             if (event.isShiftDown()) {
-                System.out.println(key);
+                response.appendText(key);
             } else {
-                System.out.println(key.toLowerCase());
+                response.appendText(key.toLowerCase());
             }
         });
 
         stage.setTitle("Typing Tutor");
         stage.setScene(scene);
         stage.show();
-
     }
 }
