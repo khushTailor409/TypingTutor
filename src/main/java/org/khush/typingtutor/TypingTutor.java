@@ -28,6 +28,9 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row1key.charAt(i)));
             button.setId(String.valueOf(row1key.charAt(i)));
             button.setPrefSize(50, 50);
+            button.setOnAction(event -> {
+                System.out.println("Clicked: " + button.getText());
+            });
             row1.getChildren().add(button);
         }
 
@@ -38,6 +41,9 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row2key.charAt(i)));
             button.setId(String.valueOf(row2key.charAt(i)));
             button.setPrefSize(50, 50);
+            button.setOnAction(event -> {
+                System.out.println("Clicked: " + button.getText());
+            });
             row2.getChildren().add(button);
 
         }
@@ -49,6 +55,9 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row3key.charAt(i)));
             button.setId(String.valueOf(row3key.charAt(i)));
             button.setPrefSize(80, 50);
+            button.setOnAction(event -> {
+                System.out.println("Clicked: " + button.getText());
+            });
             row3.getChildren().add(button);
         }
 
@@ -58,12 +67,18 @@ public class TypingTutor extends Application {
         Button shift = new Button("Shift");
         shift.setId("SHIFT");
         shift.setPrefSize(80, 50);
+        shift.setOnAction(event -> {
+            System.out.println("Clicked: " + shift.getText());
+        });
         row4.getChildren().add(shift);
 
         for (int i = 0; i < row4key.length(); i++) {
             Button button = new Button(String.valueOf(row4key.charAt(i)));
             button.setId(String.valueOf(row4key.charAt(i)));
             button.setPrefSize(50,50);
+            button.setOnAction(event -> {
+                System.out.println("Clicked: " + button.getText());
+            });
             row4.getChildren().add(button);
 
         }
@@ -71,6 +86,9 @@ public class TypingTutor extends Application {
         Button backspace = new Button("Backspace");
         backspace.setId("BACK_SPACE");
         backspace.setPrefSize(100,50);
+        backspace.setOnAction(event -> {
+            System.out.println("Clicked: " + backspace.getText());
+        });
         row4.getChildren().add(backspace);
 
         HBox row5 = new HBox(5);
@@ -79,6 +97,9 @@ public class TypingTutor extends Application {
         Button space = new Button("Space");
         space.setId("SPACE");
         space.setPrefSize(300, 50);
+        space.setOnAction(event -> {
+            System.out.println("Clicked: " + space.getText());
+        });
         row5.getChildren().add(space);
 
         VBox keyboard = new VBox(5);
