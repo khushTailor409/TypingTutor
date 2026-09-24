@@ -25,6 +25,7 @@ public class TypingTutor extends Application {
 
         for (int i = 0; i < row1key.length(); i++) {
             Button button = new Button(String.valueOf(row1key.charAt(i)));
+            button.setId(String.valueOf(row1key.charAt(i)));
             button.setPrefSize(50, 50);
             row1.getChildren().add(button);
         }
@@ -34,6 +35,7 @@ public class TypingTutor extends Application {
 
         for (int i = 0; i < row2key.length(); i++) {
             Button button = new Button(String.valueOf(row2key.charAt(i)));
+            button.setId(String.valueOf(row2key.charAt(i)));
             button.setPrefSize(50, 50);
             row2.getChildren().add(button);
 
@@ -44,6 +46,7 @@ public class TypingTutor extends Application {
 
         for (int i = 0; i < row3key.length(); i++) {
             Button button = new Button(String.valueOf(row3key.charAt(i)));
+            button.setId(String.valueOf(row3key.charAt(i)));
             button.setPrefSize(80, 50);
             row3.getChildren().add(button);
         }
@@ -51,14 +54,21 @@ public class TypingTutor extends Application {
         HBox row4 = new HBox(5);
         row4.setAlignment(Pos.CENTER);
 
+        Button shift = new Button("Shift");
+        shift.setId("SHIFT");
+        shift.setPrefSize(80, 50);
+        row4.getChildren().add(shift);
+
         for (int i = 0; i < row4key.length(); i++) {
             Button button = new Button(String.valueOf(row4key.charAt(i)));
+            button.setId(String.valueOf(row4key.charAt(i)));
             button.setPrefSize(50,50);
             row4.getChildren().add(button);
 
         }
 
         Button backspace = new Button("Backspace");
+        backspace.setId("BACK_SPACE");
         backspace.setPrefSize(100,50);
         row4.getChildren().add(backspace);
 
@@ -66,6 +76,7 @@ public class TypingTutor extends Application {
         row5.setAlignment(Pos.CENTER);
 
         Button space = new Button("Space");
+        space.setId("SPACE");
         space.setPrefSize(300, 50);
         row5.getChildren().add(space);
 
