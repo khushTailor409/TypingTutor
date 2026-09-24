@@ -17,9 +17,9 @@ public class TypingTutor extends Application {
     public void start(Stage stage) {
 
         String row1key = "1234567890";
-        String row2key = "QWERTYUIOP";
-        String row3key = "ASDFGHJKL";
-        String row4key = "ZXCVBNM";
+        String row2key = "qwertyuiop";
+        String row3key = "asdfghjkl";
+        String row4key = "zxcvbnm";
 
         HBox row1 = new HBox(5);
         row1.setAlignment(Pos.CENTER);
@@ -111,7 +111,13 @@ public class TypingTutor extends Application {
         Scene scene = new Scene(keyboard, 700, 350);
 
         scene.setOnKeyPressed(event -> {
-            System.out.println(event.getCode());
+            String key = event.getCode().toString();
+
+            if (event.isShiftDown()) {
+                System.out.println(key);
+            } else {
+                System.out.println(key.toLowerCase());
+            }
         });
 
         stage.setTitle("Typing Tutor");
