@@ -21,6 +21,8 @@ public class TypingTutor extends Application {
         String row3key = "asdfghjkl";
         String row4key = "zxcvbnm";
 
+        boolean[] shiftPressed = {false};
+
         HBox row1 = new HBox(5);
         row1.setAlignment(Pos.CENTER);
 
@@ -29,7 +31,7 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row1key.charAt(i)));
             button.setPrefSize(50, 50);
             button.setOnAction(event -> {
-                System.out.println("Clicked: " + button.getText());
+                System.out.println(button.getText());
             });
             row1.getChildren().add(button);
         }
@@ -42,7 +44,7 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row2key.charAt(i)));
             button.setPrefSize(50, 50);
             button.setOnAction(event -> {
-                System.out.println("Clicked: " + button.getText());
+                System.out.println(button.getText());
             });
             row2.getChildren().add(button);
 
@@ -56,7 +58,7 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row3key.charAt(i)));
             button.setPrefSize(80, 50);
             button.setOnAction(event -> {
-                System.out.println("Clicked: " + button.getText());
+                System.out.println(button.getText());
             });
             row3.getChildren().add(button);
         }
@@ -68,8 +70,39 @@ public class TypingTutor extends Application {
         shift.setId("SHIFT");
         shift.setPrefSize(80, 50);
         shift.setOnAction(event -> {
-            System.out.println("Clicked: " + shift.getText());
+            shiftPressed[0] = !shiftPressed[0];
+
+            for (int i = 0; i < row2.getChildren().size(); i++) {
+                Button button = (Button) row2.getChildren().get(i);
+
+                if (shiftPressed[0]) {
+                    button.setText(button.getText().toUpperCase());
+                } else {
+                    button.setText(button.getText().toLowerCase());
+                }
+            }
+
+            for (int i = 0; i < row3.getChildren().size(); i++) {
+                Button button = (Button) row3.getChildren().get(i);
+
+                if (shiftPressed[0]) {
+                    button.setText(button.getText().toUpperCase());
+                } else {
+                    button.setText(button.getText().toLowerCase());
+                }
+            }
+
+            for (int i = 0; i < row4key.length(); i++) {
+                Button button = (Button) row4.getChildren().get(i + 1);
+
+                if (shiftPressed[0]) {
+                    button.setText(button.getText().toUpperCase());
+                } else {
+                    button.setText(button.getText().toLowerCase());
+                }
+            }
         });
+
         row4.getChildren().add(shift);
 
         for (int i = 0; i < row4key.length(); i++) {
@@ -77,7 +110,7 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row4key.charAt(i)));
             button.setPrefSize(50,50);
             button.setOnAction(event -> {
-                System.out.println("Clicked: " + button.getText());
+                System.out.println(button.getText());
             });
             row4.getChildren().add(button);
 
@@ -87,7 +120,7 @@ public class TypingTutor extends Application {
         backspace.setId("BACK_SPACE");
         backspace.setPrefSize(100,50);
         backspace.setOnAction(event -> {
-            System.out.println("Clicked: " + backspace.getText());
+            System.out.println(backspace.getText());
         });
         row4.getChildren().add(backspace);
 
@@ -98,7 +131,7 @@ public class TypingTutor extends Application {
         space.setId("SPACE");
         space.setPrefSize(300, 50);
         space.setOnAction(event -> {
-            System.out.println("Clicked: " + space.getText());
+            System.out.println(space.getText());
         });
         row5.getChildren().add(space);
 
@@ -112,6 +145,10 @@ public class TypingTutor extends Application {
 
         scene.setOnKeyPressed(event -> {
             String key = event.getCode().toString();
+
+            if (key.equals("SHIFT")) {
+                return;
+            }
 
             if (event.isShiftDown()) {
                 System.out.println(key);
