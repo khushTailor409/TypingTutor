@@ -56,5 +56,9 @@ public class TypingTutor extends Application {
             row1.getChildren().add(button);
 
         }
+
+        Button backspace = new Button("Backspace");
+        backspace.setPrefSize(50,50);
+        row4.getChildren().add(backspace);
     }
 }
