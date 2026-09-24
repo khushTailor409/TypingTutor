@@ -60,5 +60,13 @@ public class TypingTutor extends Application {
         Button backspace = new Button("Backspace");
         backspace.setPrefSize(50,50);
         row4.getChildren().add(backspace);
+
+        HBox row5 = new HBox(5);
+        row1.setAlignment(Pos.CENTER);
+
+        Button space = new Button("Space");
+        space.setPrefSize(50, 50);
+        row5.getChildren().add(space);
+
     }
 }
