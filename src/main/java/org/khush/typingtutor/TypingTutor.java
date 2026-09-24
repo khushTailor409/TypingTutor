@@ -37,5 +37,12 @@ public class TypingTutor extends Application {
             row1.getChildren().add(button);
 
         }
+        HBox row3 = new HBox(5);
+        row1.setAlignment(Pos.CENTER);
+
+        for (int i = 0; i < row3key.length(); i++) {
+            Button button = new Button(String.valueOf(row1key.charAt(i)));
+            button.setPrefSize(50,50);
+            row1.getChildren().add(button);
     }
 }
