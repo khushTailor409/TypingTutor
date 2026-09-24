@@ -9,11 +9,12 @@ import java.io.IOException;
 
 public class TypingTutor extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TypingTutor.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage stage) {
+
+        String row1 = "1234567890";
+        String row2 = "QWERTYUIOP";
+        String row3 = "ASDFGHJKL";
+        String row4 = "ZXCVBNM";
+
         }
 }
