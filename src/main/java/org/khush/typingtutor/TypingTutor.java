@@ -30,43 +30,43 @@ public class TypingTutor extends Application {
         }
 
         HBox row2 = new HBox(5);
-        row1.setAlignment(Pos.CENTER);
+        row2.setAlignment(Pos.CENTER);
 
         for (int i = 0; i < row2key.length(); i++) {
-            Button button = new Button(String.valueOf(row1key.charAt(i)));
+            Button button = new Button(String.valueOf(row2key.charAt(i)));
             button.setPrefSize(50, 50);
-            row1.getChildren().add(button);
+            row2.getChildren().add(button);
 
         }
 
         HBox row3 = new HBox(5);
-        row1.setAlignment(Pos.CENTER);
+        row3.setAlignment(Pos.CENTER);
 
         for (int i = 0; i < row3key.length(); i++) {
-            Button button = new Button(String.valueOf(row1key.charAt(i)));
-            button.setPrefSize(50, 50);
-            row1.getChildren().add(button);
+            Button button = new Button(String.valueOf(row3key.charAt(i)));
+            button.setPrefSize(80, 50);
+            row3.getChildren().add(button);
         }
 
         HBox row4 = new HBox(5);
-        row1.setAlignment(Pos.CENTER);
+        row4.setAlignment(Pos.CENTER);
 
         for (int i = 0; i < row4key.length(); i++) {
-            Button button = new Button(String.valueOf(row1key.charAt(i)));
+            Button button = new Button(String.valueOf(row4key.charAt(i)));
             button.setPrefSize(50,50);
-            row1.getChildren().add(button);
+            row4.getChildren().add(button);
 
         }
 
         Button backspace = new Button("Backspace");
-        backspace.setPrefSize(50,50);
+        backspace.setPrefSize(100,50);
         row4.getChildren().add(backspace);
 
         HBox row5 = new HBox(5);
-        row1.setAlignment(Pos.CENTER);
+        row5.setAlignment(Pos.CENTER);
 
         Button space = new Button("Space");
-        space.setPrefSize(50, 50);
+        space.setPrefSize(300, 50);
         row5.getChildren().add(space);
 
         VBox keyboard = new VBox(5);
