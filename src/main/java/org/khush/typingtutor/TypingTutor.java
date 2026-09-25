@@ -52,6 +52,7 @@ public class TypingTutor extends Application {
         response.setPromptText("Type here");
 
         Button next = new Button("Next");
+        Button reset = new Button("Reset");
 
         Label counter = new Label("1 of 6");
 
@@ -67,9 +68,18 @@ public class TypingTutor extends Application {
             }
         });
 
+        reset.setOnAction(event -> {
+            currentText[0] = 0;
+            expectedText.setText(texts[0]);
+            response.clear();
+            counter.setText("1 of 6");
+            shiftPressed[0] = false;
+            response.requestFocus();
+        });
+
         HBox controls = new HBox(10);
         controls.setAlignment(Pos.CENTER);
-        controls.getChildren().addAll(next, counter);
+        controls.getChildren().addAll(next, reset, counter);
 
         HBox row1 = new HBox(5);
         row1.setAlignment(Pos.CENTER);
