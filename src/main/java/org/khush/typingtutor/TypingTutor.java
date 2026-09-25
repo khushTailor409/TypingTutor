@@ -18,6 +18,15 @@ public class TypingTutor extends Application {
     @Override
     public void start(Stage stage) {
 
+        String[] texts = {
+                "Try typing this text. Do it as quickly and accurately as you can.",
+                "Next type another line of input data.",
+                "The quick brown fox jumps over the lazy dog.",
+                "Five big quacking zephyrs jolt my wax bed.",
+                "Sympathizing would fix Quaker objectives.",
+                "A large fawn jumped quickly over white zinc boxes."
+        };
+
         String row1key = "1234567890";
         String row2key = "qwertyuiop";
         String row3key = "asdfghjkl";
@@ -29,6 +38,11 @@ public class TypingTutor extends Application {
         pressedKey.setPrefWidth(200);
         pressedKey.setPromptText("Pressed key");
         pressedKey.setEditable(false);
+
+        TextField expectedText = new TextField();
+        expectedText.setPrefWidth(500);
+        expectedText.setText(texts[0]);
+        expectedText.setEditable(false);
 
         TextField response = new TextField();
         response.setPrefWidth(500);
@@ -215,6 +229,24 @@ public class TypingTutor extends Application {
         HBox row5 = new HBox(5);
         row5.setAlignment(Pos.CENTER);
 
+        Button comma = new Button(",");
+        comma.setId("COMMA");
+        comma.setPrefSize(50, 50);
+
+        comma.setOnAction(event -> {
+            response.appendText(",");
+            response.requestFocus();
+        });
+
+        comma.setOnMousePressed(event -> {
+            comma.setStyle("-fx-background-color: gray;");
+            pressedKey.setText(",");
+        });
+
+        comma.setOnMouseReleased(event -> {
+            comma.setStyle("");
+        });
+
         Button space = new Button("Space");
         space.setId("SPACE");
         space.setPrefSize(300, 50);
@@ -233,13 +265,31 @@ public class TypingTutor extends Application {
             space.setStyle("");
         });
 
-        row5.getChildren().add(space);
+        Button period = new Button(".");
+        period.setId("PERIOD");
+        period.setPrefSize(50, 50);
+
+        period.setOnAction(event -> {
+            response.appendText(".");
+            response.requestFocus();
+        });
+
+        period.setOnMousePressed(event -> {
+            period.setStyle("-fx-background-color: gray;");
+            pressedKey.setText(".");
+        });
+
+        period.setOnMouseReleased(event -> {
+            period.setStyle("");
+        });
+
+        row5.getChildren().addAll(comma, space, period);
 
         VBox keyboard = new VBox(5);
         keyboard.setAlignment(Pos.CENTER);
 
         keyboard.getChildren().addAll(
-                pressedKey, response, row1, row2, row3, row4, row5
+                expectedText, pressedKey, response, row1, row2, row3, row4, row5
         );
 
         Scene scene = new Scene(keyboard, 700, 400);
