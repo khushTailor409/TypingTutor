@@ -25,6 +25,11 @@ public class TypingTutor extends Application {
 
         boolean[] shiftPressed = {false};
 
+        TextField pressedKey = new TextField();
+        pressedKey.setPrefWidth(200);
+        pressedKey.setPromptText("Pressed key");
+        pressedKey.setEditable(false);
+
         TextField response = new TextField();
         response.setPrefWidth(500);
         response.setPromptText("Type here");
@@ -44,6 +49,7 @@ public class TypingTutor extends Application {
 
             button.setOnMousePressed(event -> {
                 button.setStyle("-fx-background-color: gray;");
+                pressedKey.setText(button.getText());
             });
 
             button.setOnMouseReleased(event -> {
@@ -68,6 +74,7 @@ public class TypingTutor extends Application {
 
             button.setOnMousePressed(event -> {
                 button.setStyle("-fx-background-color: gray;");
+                pressedKey.setText(button.getText());
             });
 
             button.setOnMouseReleased(event -> {
@@ -92,6 +99,7 @@ public class TypingTutor extends Application {
 
             button.setOnMousePressed(event -> {
                 button.setStyle("-fx-background-color: gray;");
+                pressedKey.setText(button.getText());
             });
 
             button.setOnMouseReleased(event -> {
@@ -146,6 +154,7 @@ public class TypingTutor extends Application {
 
         shift.setOnMousePressed(event -> {
             shift.setStyle("-fx-background-color: gray;");
+            pressedKey.setText("SHIFT");
         });
 
         shift.setOnMouseReleased(event -> {
@@ -166,6 +175,7 @@ public class TypingTutor extends Application {
 
             button.setOnMousePressed(event -> {
                 button.setStyle("-fx-background-color: gray;");
+                pressedKey.setText(button.getText());
             });
 
             button.setOnMouseReleased(event -> {
@@ -188,18 +198,17 @@ public class TypingTutor extends Application {
                 );
             }
 
-
             response.requestFocus();
         });
 
         backspace.setOnMousePressed(event -> {
             backspace.setStyle("-fx-background-color: gray;");
+            pressedKey.setText("BACK_SPACE");
         });
 
         backspace.setOnMouseReleased(event -> {
             backspace.setStyle("");
         });
-
 
         row4.getChildren().add(backspace);
 
@@ -217,12 +226,12 @@ public class TypingTutor extends Application {
 
         space.setOnMousePressed(event -> {
             space.setStyle("-fx-background-color: gray;");
+            pressedKey.setText("SPACE");
         });
 
         space.setOnMouseReleased(event -> {
             space.setStyle("");
         });
-
 
         row5.getChildren().add(space);
 
@@ -230,7 +239,7 @@ public class TypingTutor extends Application {
         keyboard.setAlignment(Pos.CENTER);
 
         keyboard.getChildren().addAll(
-                response, row1, row2, row3, row4, row5
+                pressedKey, response, row1, row2, row3, row4, row5
         );
 
         Scene scene = new Scene(keyboard, 700, 400);
@@ -238,6 +247,8 @@ public class TypingTutor extends Application {
         response.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 
             String key = event.getCode().toString();
+
+            pressedKey.setText(key);
 
             String buttonId = key;
 
