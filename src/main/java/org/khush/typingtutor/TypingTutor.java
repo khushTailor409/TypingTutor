@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -34,6 +35,8 @@ public class TypingTutor extends Application {
 
         boolean[] shiftPressed = {false};
 
+        int[] currentText = {0};
+
         TextField pressedKey = new TextField();
         pressedKey.setPrefWidth(200);
         pressedKey.setPromptText("Pressed key");
@@ -47,6 +50,26 @@ public class TypingTutor extends Application {
         TextField response = new TextField();
         response.setPrefWidth(500);
         response.setPromptText("Type here");
+
+        Button next = new Button("Next");
+
+        Label counter = new Label("1 of 6");
+
+        next.setOnAction(event -> {
+            if (currentText[0] < texts.length - 1) {
+                currentText[0]++;
+                expectedText.setText(texts[currentText[0]]);
+                response.clear();
+                counter.setText(
+                        (currentText[0] + 1) + " of " + texts.length
+                );
+                response.requestFocus();
+            }
+        });
+
+        HBox controls = new HBox(10);
+        controls.setAlignment(Pos.CENTER);
+        controls.getChildren().addAll(next, counter);
 
         HBox row1 = new HBox(5);
         row1.setAlignment(Pos.CENTER);
@@ -289,7 +312,8 @@ public class TypingTutor extends Application {
         keyboard.setAlignment(Pos.CENTER);
 
         keyboard.getChildren().addAll(
-                expectedText, pressedKey, response, row1, row2, row3, row4, row5
+                expectedText, pressedKey, response, controls,
+                row1, row2, row3, row4, row5
         );
 
         Scene scene = new Scene(keyboard, 700, 400);
