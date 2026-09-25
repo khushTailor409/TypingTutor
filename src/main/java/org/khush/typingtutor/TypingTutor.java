@@ -42,6 +42,14 @@ public class TypingTutor extends Application {
                 response.requestFocus();
             });
 
+            button.setOnMousePressed(event -> {
+                button.setStyle("-fx-background-color: gray;");
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle("");
+            });
+
             row1.getChildren().add(button);
         }
 
@@ -58,6 +66,14 @@ public class TypingTutor extends Application {
                 response.requestFocus();
             });
 
+            button.setOnMousePressed(event -> {
+                button.setStyle("-fx-background-color: gray;");
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle("");
+            });
+
             row2.getChildren().add(button);
         }
 
@@ -72,6 +88,14 @@ public class TypingTutor extends Application {
             button.setOnAction(event -> {
                 response.appendText(button.getText());
                 response.requestFocus();
+            });
+
+            button.setOnMousePressed(event -> {
+                button.setStyle("-fx-background-color: gray;");
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle("");
             });
 
             row3.getChildren().add(button);
@@ -120,6 +144,14 @@ public class TypingTutor extends Application {
             response.requestFocus();
         });
 
+        shift.setOnMousePressed(event -> {
+            shift.setStyle("-fx-background-color: gray;");
+        });
+
+        shift.setOnMouseReleased(event -> {
+            shift.setStyle("");
+        });
+
         row4.getChildren().add(shift);
 
         for (int i = 0; i < row4key.length(); i++) {
@@ -132,6 +164,14 @@ public class TypingTutor extends Application {
                 response.requestFocus();
             });
 
+            button.setOnMousePressed(event -> {
+                button.setStyle("-fx-background-color: gray;");
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle("");
+            });
+
             row4.getChildren().add(button);
         }
 
@@ -140,6 +180,7 @@ public class TypingTutor extends Application {
         backspace.setPrefSize(100, 50);
 
         backspace.setOnAction(event -> {
+
             if (!response.getText().isEmpty()) {
                 response.deleteText(
                         response.getText().length() - 1,
@@ -147,8 +188,18 @@ public class TypingTutor extends Application {
                 );
             }
 
+
             response.requestFocus();
         });
+
+        backspace.setOnMousePressed(event -> {
+            backspace.setStyle("-fx-background-color: gray;");
+        });
+
+        backspace.setOnMouseReleased(event -> {
+            backspace.setStyle("");
+        });
+
 
         row4.getChildren().add(backspace);
 
@@ -163,6 +214,15 @@ public class TypingTutor extends Application {
             response.appendText(" ");
             response.requestFocus();
         });
+
+        space.setOnMousePressed(event -> {
+            space.setStyle("-fx-background-color: gray;");
+        });
+
+        space.setOnMouseReleased(event -> {
+            space.setStyle("");
+        });
+
 
         row5.getChildren().add(space);
 
@@ -226,6 +286,27 @@ public class TypingTutor extends Application {
                 alert.showAndWait();
 
                 event.consume();
+            }
+        });
+
+        response.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
+
+            String key = event.getCode().toString();
+
+            String buttonId = key;
+
+            if (key.startsWith("DIGIT")) {
+                buttonId = key.substring(5);
+            }
+
+            if (key.length() == 1 && Character.isLetter(key.charAt(0))) {
+                buttonId = key.toLowerCase();
+            }
+
+            Button button = (Button) scene.lookup("#" + buttonId);
+
+            if (button != null) {
+                button.setStyle("");
             }
         });
 
