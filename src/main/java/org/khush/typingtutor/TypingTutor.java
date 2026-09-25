@@ -55,31 +55,61 @@ public class TypingTutor extends Application {
         Button reset = new Button("Reset");
 
         Label counter = new Label("1 of 6");
+        Label correct = new Label("Correct: 0");
+        Label incorrect = new Label("Incorrect: 0");
 
         next.setOnAction(event -> {
             if (currentText[0] < texts.length - 1) {
                 currentText[0]++;
                 expectedText.setText(texts[currentText[0]]);
                 response.clear();
+
                 counter.setText(
                         (currentText[0] + 1) + " of " + texts.length
                 );
+
                 response.requestFocus();
             }
         });
 
         reset.setOnAction(event -> {
             currentText[0] = 0;
+
             expectedText.setText(texts[0]);
             response.clear();
+
             counter.setText("1 of 6");
+
             shiftPressed[0] = false;
+
             response.requestFocus();
+        });
+
+        response.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            int correctCount = 0;
+            int incorrectCount = 0;
+
+            String expected = expectedText.getText();
+
+            for (int i = 0; i < newValue.length(); i++) {
+                if (i < expected.length()
+                        && newValue.charAt(i) == expected.charAt(i)) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            }
+
+            correct.setText("Correct: " + correctCount);
+            incorrect.setText("Incorrect: " + incorrectCount);
         });
 
         HBox controls = new HBox(10);
         controls.setAlignment(Pos.CENTER);
-        controls.getChildren().addAll(next, reset, counter);
+        controls.getChildren().addAll(
+                next, reset, counter, correct, incorrect
+        );
 
         HBox row1 = new HBox(5);
         row1.setAlignment(Pos.CENTER);
@@ -354,7 +384,7 @@ public class TypingTutor extends Application {
                 return;
             }
 
-            if (key.equals("BACK_SPACE")) {
+            if (key.equals("BACKSPACE")) {
                 if (!response.getText().isEmpty()) {
                     response.deleteText(
                             response.getText().length() - 1,
@@ -366,12 +396,6 @@ public class TypingTutor extends Application {
                 return;
             }
 
-            if (key.equals("SPACE")) {
-                response.appendText(" ");
-
-                event.consume();
-                return;
-            }
 
             if (button == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
