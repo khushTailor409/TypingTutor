@@ -41,18 +41,33 @@ public class TypingTutor extends Application {
         pressedKey.setPrefWidth(200);
         pressedKey.setPromptText("Pressed key");
         pressedKey.setEditable(false);
+        pressedKey.setStyle("-fx-border-color: black;");
 
         TextField expectedText = new TextField();
         expectedText.setPrefWidth(500);
         expectedText.setText(texts[0]);
         expectedText.setEditable(false);
+        expectedText.setStyle("-fx-border-color: black;");
 
         TextField response = new TextField();
         response.setPrefWidth(500);
         response.setPromptText("Type here");
+        response.setStyle("-fx-border-color: black;");
 
         Button next = new Button("Next");
         Button reset = new Button("Reset");
+
+        next.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: black;"
+        );
+
+        reset.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: black;"
+        );
 
         Label counter = new Label("1 of 6");
         Label correct = new Label("Correct: 0");
@@ -119,6 +134,12 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row1key.charAt(i)));
             button.setPrefSize(50, 50);
 
+            button.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-text-fill: black;" +
+                            "-fx-border-color: black;"
+            );
+
             button.setOnAction(event -> {
                 response.appendText(button.getText());
                 response.requestFocus();
@@ -143,6 +164,12 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row2key.charAt(i)));
             button.setId(String.valueOf(row2key.charAt(i)));
             button.setPrefSize(50, 50);
+
+            button.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-text-fill: black;" +
+                            "-fx-border-color: black;"
+            );
 
             button.setOnAction(event -> {
                 response.appendText(button.getText());
@@ -169,6 +196,12 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row3key.charAt(i)));
             button.setPrefSize(80, 50);
 
+            button.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-text-fill: black;" +
+                            "-fx-border-color: black;"
+            );
+
             button.setOnAction(event -> {
                 response.appendText(button.getText());
                 response.requestFocus();
@@ -192,6 +225,12 @@ public class TypingTutor extends Application {
         Button shift = new Button("Shift");
         shift.setId("SHIFT");
         shift.setPrefSize(80, 50);
+
+        shift.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: black;"
+        );
 
         shift.setOnAction(event -> {
             shiftPressed[0] = !shiftPressed[0];
@@ -245,6 +284,12 @@ public class TypingTutor extends Application {
             button.setId(String.valueOf(row4key.charAt(i)));
             button.setPrefSize(50, 50);
 
+            button.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-text-fill: black;" +
+                            "-fx-border-color: black;"
+            );
+
             button.setOnAction(event -> {
                 response.appendText(button.getText());
                 response.requestFocus();
@@ -265,6 +310,12 @@ public class TypingTutor extends Application {
         Button backspace = new Button("Backspace");
         backspace.setId("BACK_SPACE");
         backspace.setPrefSize(100, 50);
+
+        backspace.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: black;"
+        );
 
         backspace.setOnAction(event -> {
 
@@ -296,6 +347,12 @@ public class TypingTutor extends Application {
         comma.setId("COMMA");
         comma.setPrefSize(50, 50);
 
+        comma.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: black;"
+        );
+
         comma.setOnAction(event -> {
             response.appendText(",");
             response.requestFocus();
@@ -313,6 +370,12 @@ public class TypingTutor extends Application {
         Button space = new Button("Space");
         space.setId("SPACE");
         space.setPrefSize(300, 50);
+
+        space.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: black;"
+        );
 
         space.setOnAction(event -> {
             response.appendText(" ");
@@ -332,6 +395,12 @@ public class TypingTutor extends Application {
         period.setId("PERIOD");
         period.setPrefSize(50, 50);
 
+        period.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: black;"
+        );
+
         period.setOnAction(event -> {
             response.appendText(".");
             response.requestFocus();
@@ -348,8 +417,18 @@ public class TypingTutor extends Application {
 
         row5.getChildren().addAll(comma, space, period);
 
-        VBox keyboard = new VBox(5);
+        VBox keyboard = new VBox(8);
         keyboard.setAlignment(Pos.CENTER);
+
+        keyboard.setStyle(
+                "-fx-padding: 15;" +
+                        "-fx-background-color: grey;" +
+                        "-fx-border-style: solid inside;" +
+                        "-fx-border-width: 2;" +
+                        "-fx-border-insets: 5;" +
+                        "-fx-border-radius: 5;" +
+                        "-fx-border-color: black;"
+        );
 
         keyboard.getChildren().addAll(
                 expectedText, pressedKey, response, controls,
@@ -396,12 +475,11 @@ public class TypingTutor extends Application {
                 return;
             }
 
-
             if (button == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Key not handled.");
+                alert.setContentText("Not handled.");
                 alert.showAndWait();
 
                 event.consume();
