@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,9 +36,12 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row1key.charAt(i)));
             button.setId(String.valueOf(row1key.charAt(i)));
             button.setPrefSize(50, 50);
+
             button.setOnAction(event -> {
                 response.appendText(button.getText());
+                response.requestFocus();
             });
+
             row1.getChildren().add(button);
         }
 
@@ -48,9 +52,12 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row2key.charAt(i)));
             button.setId(String.valueOf(row2key.charAt(i)));
             button.setPrefSize(50, 50);
+
             button.setOnAction(event -> {
                 response.appendText(button.getText());
+                response.requestFocus();
             });
+
             row2.getChildren().add(button);
         }
 
@@ -61,9 +68,12 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row3key.charAt(i)));
             button.setId(String.valueOf(row3key.charAt(i)));
             button.setPrefSize(80, 50);
+
             button.setOnAction(event -> {
                 response.appendText(button.getText());
+                response.requestFocus();
             });
+
             row3.getChildren().add(button);
         }
 
@@ -106,6 +116,8 @@ public class TypingTutor extends Application {
                     button.setText(button.getText().toLowerCase());
                 }
             }
+
+            response.requestFocus();
         });
 
         row4.getChildren().add(shift);
@@ -114,9 +126,12 @@ public class TypingTutor extends Application {
             Button button = new Button(String.valueOf(row4key.charAt(i)));
             button.setId(String.valueOf(row4key.charAt(i)));
             button.setPrefSize(50, 50);
+
             button.setOnAction(event -> {
                 response.appendText(button.getText());
+                response.requestFocus();
             });
+
             row4.getChildren().add(button);
         }
 
@@ -131,6 +146,8 @@ public class TypingTutor extends Application {
                         response.getText().length()
                 );
             }
+
+            response.requestFocus();
         });
 
         row4.getChildren().add(backspace);
@@ -144,6 +161,7 @@ public class TypingTutor extends Application {
 
         space.setOnAction(event -> {
             response.appendText(" ");
+            response.requestFocus();
         });
 
         row5.getChildren().add(space);
@@ -157,8 +175,25 @@ public class TypingTutor extends Application {
 
         Scene scene = new Scene(keyboard, 700, 400);
 
-        scene.setOnKeyPressed(event -> {
+        response.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+
             String key = event.getCode().toString();
+
+            String buttonId = key;
+
+            if (key.startsWith("DIGIT")) {
+                buttonId = key.substring(5);
+            }
+
+            if (key.length() == 1 && Character.isLetter(key.charAt(0))) {
+                buttonId = key.toLowerCase();
+            }
+
+            Button button = (Button) scene.lookup("#" + buttonId);
+
+            if (button != null) {
+                button.setStyle("-fx-background-color: gray;");
+            }
 
             if (key.equals("SHIFT")) {
                 return;
@@ -171,23 +206,33 @@ public class TypingTutor extends Application {
                             response.getText().length()
                     );
                 }
+
+                event.consume();
                 return;
             }
 
             if (key.equals("SPACE")) {
                 response.appendText(" ");
+
+                event.consume();
                 return;
             }
 
-            if (event.isShiftDown()) {
-                response.appendText(key);
-            } else {
-                response.appendText(key.toLowerCase());
+            if (button == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Key not handled.");
+                alert.showAndWait();
+
+                event.consume();
             }
         });
 
         stage.setTitle("Typing Tutor");
         stage.setScene(scene);
         stage.show();
+
+        response.requestFocus();
     }
 }
